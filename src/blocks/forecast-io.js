@@ -7,7 +7,7 @@ const json = new Json()
 export default class ForecastIo {
   run (params) {
     return new Promise((resolve, reject) => {
-      const [lat, lng] = params
+      const [place, lat, lng] = params
 
       const apiKey = process.env.FORECASTIO_APIKEY
       if (!apiKey) {
@@ -22,7 +22,7 @@ export default class ForecastIo {
         .then(json.run)
         .then((data) => {
           const weather = data.daily.data[1]
-          resolve(weather.summary)
+          resolve([place, weather.summary])
         })
         .catch(reject)
     })
