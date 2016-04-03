@@ -4,7 +4,7 @@
   "description": "This is a proof of concept for component-based data processor in functional reactive style.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "babel src -d dist && node dist/index.js"
+    "start": "babel-node src/index.js"
   },
   "author": "",
   "license": "MIT",
