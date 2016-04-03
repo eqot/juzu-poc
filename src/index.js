@@ -1,5 +1,9 @@
+import Map from './blocks/map'
 import ConsoleLog from './blocks/console-log'
 
-const consoleLog = new ConsoleLog();
+const map_x2 = new Map(value => value * 2)
+const consoleLog = new ConsoleLog()
 
-[1, 2, 3].map(consoleLog.run)
+Promise.resolve([1, 2, 3])
+  .then(map_x2.run.bind(map_x2))
+  .then(consoleLog.run)
