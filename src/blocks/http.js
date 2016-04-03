@@ -15,9 +15,7 @@ export default class Http {
             resolve(body)
           }
         })
-      }).on('error', (e) => {
-        reject(ee)
-      })
+      }).on('error', reject)
     })
   }
 }
