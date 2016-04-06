@@ -13,15 +13,12 @@ export default class Http {
         method: req.method || 'GET'
       }
 
-      let postData = null;
       if (options.method === 'POST') {
-        postData = 'payload=' + JSON.stringify(req.data)
-
         options = {
           ...options,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': postData.length
+            'Content-Length': req.data.length
           }
         };
       }
@@ -38,12 +35,14 @@ export default class Http {
         res.on('end', () => {
           if (body.length > 0) {
             resolve(body)
+          } else {
+            reject()
           }
         })
       }).on('error', reject)
 
-      if (postData) {
-        request.write(postData)
+      if (req.data) {
+        request.write(req.data)
       }
 
       request.end()
