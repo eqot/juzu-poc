@@ -38,10 +38,10 @@ describe('Http', () => {
     beforeEach(() => {
       nock('http://www.example.com')
         .post('/test', 'req body')
-        .reply(200, 'res body');
+        .reply(200, 'res body')
       nock('https://www.example.com')
         .post('/test', 'req body')
-        .reply(200, 'res body');
+        .reply(200, 'res body')
     })
 
     it('sends and returns correct body with http', () => {
