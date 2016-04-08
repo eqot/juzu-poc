@@ -20,8 +20,7 @@ export default class Slack {
         data: 'payload=' + JSON.stringify(data)
       }
 
-      Promise.resolve(request)
-        .then(http.run)
+      http.run(request)
         .then(json.run)
         .then(resolve)
         .catch(reject)

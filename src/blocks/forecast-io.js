@@ -17,8 +17,7 @@ export default class ForecastIo {
       const url = 'https://api.forecast.io/forecast/' + apiKey + '/' +
         lat + ',' + lng + '?exclude=currently,minutely,hourly,flags&units=si'
 
-      Promise.resolve(url)
-        .then(http.run)
+      http.run(url)
         .then(json.run)
         .then((data) => {
           const weather = data.daily.data[1]
