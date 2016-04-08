@@ -13,14 +13,14 @@ export default class Http {
         method: req.method || 'GET'
       }
 
-      if (options.method === 'POST') {
+      if (options.method === 'POST' && req.data) {
         options = {
           ...options,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Content-Length': req.data.length
           }
-        };
+        }
       }
 
       const connection = (urlData.protocol === 'https:') ? https : http

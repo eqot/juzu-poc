@@ -17,12 +17,13 @@ export default class Slack {
       const request = {
         method: 'POST',
         url,
-        data
+        data: 'payload=' + JSON.stringify(data)
       }
 
       Promise.resolve(request)
         .then(http.run)
         .then(json.run)
+        .then(resolve)
         .catch(reject)
     })
   }
