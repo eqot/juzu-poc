@@ -5,6 +5,19 @@ const http = new Http()
 const json = new Json()
 
 export default class ForecastIo {
+  static EMOJIS = {
+    'clear-day': ':sunny:',
+    'clear-night': ':sunny:',
+    'rain': ':umbrella:',
+    'snow': ':snowflake:',
+    'sleet': ':snowflake:',
+    'wind': ':ocean:',
+    'fog': ':foggy:',
+    'cloudy': ':cloud:',
+    'partly-cloudy-day': ':cloud:',
+    'partly-cloudy-night': ':cloud:'
+  }
+
   run (params) {
     return new Promise((resolve, reject) => {
       const [place, lat, lng] = params
@@ -21,7 +34,9 @@ export default class ForecastIo {
         .then(json.run)
         .then((data) => {
           const weather = data.daily.data[1]
-          resolve([place, weather.summary])
+          const message = ForecastIo.EMOJIS[weather.icon] + ' ' + weather.summary
+
+          resolve([place, message])
         })
         .catch(reject)
     })
