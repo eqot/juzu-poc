@@ -1,5 +1,6 @@
 import File from './blocks/file'
 import Map from './blocks/map'
+import ForEach from './blocks/forEach'
 import ForecastIo from './blocks/forecast-io'
 import Slack from './blocks/slack'
 import Http from './blocks/http'
@@ -16,6 +17,13 @@ const consoleLog = new ConsoleLog()
 
 const map_forecastio = new Map(forecastIo.run)
 const map_slack = new Map(([location, message]) => {
+  slack.run({
+    username: location,
+    text: message,
+    icon_emoji: ':earth_americas:'
+  })
+})
+const forEach_slack = new ForEach(([location, message]) => {
   slack.run({
     username: location,
     text: message,
@@ -48,6 +56,7 @@ const map_slack = new Map(([location, message]) => {
 file.run('src/locations.json')
   .then(json.run)
   .then(map_forecastio.run.bind(map_forecastio))
-  .then(map_slack.run.bind(map_slack))
+  // .then(map_slack.run.bind(map_slack))
+  .then(forEach_slack.run.bind(map_slack))
   .then(consoleLog.run)
   .catch(console.log)
