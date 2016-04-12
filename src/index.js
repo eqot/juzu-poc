@@ -16,20 +16,17 @@ const json = new Json()
 const consoleLog = new ConsoleLog()
 
 const map_forecastio = new Map(forecastIo.run)
-const map_slack = new Map(([location, message]) => {
+
+let slackOut = ([location, icon, message]) => {
   slack.run({
     username: location,
-    text: message,
-    icon_emoji: ':earth_americas:'
+    icon_emoji: icon,
+    text: message
   })
-})
-const forEach_slack = new ForEach(([location, message]) => {
-  slack.run({
-    username: location,
-    text: message,
-    icon_emoji: ':earth_americas:'
-  })
-})
+}
+
+const map_slack = new Map(slackOut)
+const forEach_slack = new ForEach(slackOut)
 
 // Promise.resolve([1, 2, 3])
 //   .then(map_x2.run.bind(map_x2))

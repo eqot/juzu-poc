@@ -34,9 +34,7 @@ export default class ForecastIo {
         .then(json.run)
         .then((data) => {
           const weather = data.daily.data[1]
-          const message = ForecastIo.EMOJIS[weather.icon] + ' ' + weather.summary
-
-          resolve([place, message])
+          resolve([place, ForecastIo.EMOJIS[weather.icon], weather.summary])
         })
         .catch(reject)
     })
