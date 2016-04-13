@@ -16,13 +16,13 @@ describe('ForecastIo', () => {
 
     nock('https://api.forecast.io')
       .get('/forecast/' + API_KEY + '/123.45,-67.89?exclude=currently,minutely,hourly,flags&units=si')
-      .reply(200, '{ "daily": { "data": ["sunny", { "summary": "rainy" } ] } }')
+      .reply(200, '{ "daily": { "data": ["sunny", { "icon": "cloudy", "summary": "rainy" } ] } }')
   })
 
   it('returns correct weather', () => {
     const promise = forecastIo.run(['place', 123.45, -67.89])
 
-    return expect(promise).to.eventually.deep.equal(['place', 'rainy'])
+    return expect(promise).to.eventually.deep.equal(['place', ':cloud:', 'rainy'])
   })
 
   afterEach(() => {
