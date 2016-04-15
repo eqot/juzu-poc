@@ -20,21 +20,30 @@ export default class ForecastIo {
 
   run (params) {
     return new Promise((resolve, reject) => {
-      const [place, lat, lng] = params
+      let promise = null
+      let location = 'No location'
+      if (typeof params === 'string') {
+        promise = Promise.resolve(params)
+      } else {
+        location = params[0]
+        const [, lat, lng] = params
 
-      const apiKey = process.env.FORECASTIO_APIKEY
-      if (!apiKey) {
-        reject(new Error('No API key for forecast.io'))
+        const apiKey = process.env.FORECASTIO_APIKEY
+        if (!apiKey) {
+          reject(new Error('No API key for forecast.io'))
+        }
+
+        const url = 'https://api.forecast.io/forecast/' + apiKey + '/' +
+          lat + ',' + lng + '?exclude=currently,minutely,hourly,flags&units=si'
+
+        promise = http.run(url)
       }
 
-      const url = 'https://api.forecast.io/forecast/' + apiKey + '/' +
-        lat + ',' + lng + '?exclude=currently,minutely,hourly,flags&units=si'
-
-      http.run(url)
+      promise
         .then(json.run)
         .then((data) => {
           const weather = data.daily.data[1]
-          resolve([place, ForecastIo.EMOJIS[weather.icon], weather.summary])
+          resolve([location, ForecastIo.EMOJIS[weather.icon], weather.summary])
         })
         .catch(reject)
     })

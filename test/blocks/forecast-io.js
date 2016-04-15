@@ -8,6 +8,9 @@ const sandbox = require('sinon').sandbox.create()
 import ForecastIo from '../../src/blocks/forecast-io'
 const forecastIo = new ForecastIo()
 
+import File from '../../src/blocks/file'
+const file = new File()
+
 describe('ForecastIo', () => {
   beforeEach(() => {
     const API_KEY = 'DUMMY_KEY'
@@ -23,6 +26,17 @@ describe('ForecastIo', () => {
     const promise = forecastIo.run(['place', 123.45, -67.89])
 
     return expect(promise).to.eventually.deep.equal(['place', ':cloud:', 'rainy'])
+  })
+
+  it('returns correct weather from file', () => {
+    const promise = file.run('test/fixtures/forecastio.json')
+      .then(forecastIo.run)
+
+    return expect(promise).to.eventually.deep.equal([
+      'No location',
+      ':umbrella:',
+      'Light rain starting in the afternoon, continuing until evening.'
+    ])
   })
 
   afterEach(() => {
