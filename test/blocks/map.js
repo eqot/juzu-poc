@@ -9,4 +9,8 @@ describe('Map', () => {
   it('returns correct array', () => {
     return expect(map_x2.run([1, 2, 3])).to.eventually.deep.equal([2, 4, 6])
   })
+
+  it('returns correct value if argument is not array', () => {
+    return expect(map_x2.run(123)).to.eventually.deep.equal(246)
+  })
 })
