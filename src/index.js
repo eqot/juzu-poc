@@ -1,4 +1,5 @@
 import File from './blocks/file'
+import Time from './blocks/time'
 import Map from './blocks/map'
 import ForEach from './blocks/forEach'
 import ForecastIo from './blocks/forecast-io'
@@ -8,6 +9,7 @@ import Json from './blocks/json'
 import ConsoleLog from './blocks/console-log'
 
 const file = new File()
+const time = new Time()
 const map_x2 = new Map(value => value * 2)
 const forecastIo = new ForecastIo()
 const slack = new Slack()
@@ -58,7 +60,10 @@ const forEach_slack = new ForEach(slackOut)
 //   .then(consoleLog.run)
 //   .catch(console.log)
 
-file.run('test/fixtures/forecastio.json')
-  .then(forecastIo.run)
+// file.run('test/fixtures/forecastio.json')
+//   .then(forecastIo.run)
+//   .then(consoleLog.run)
+//   .catch(console.log)
+
+time.run({duration: 3000})
   .then(consoleLog.run)
-  .catch(console.log)
