@@ -1,3 +1,4 @@
+import Constant from './blocks/constant'
 import File from './blocks/file'
 import Time from './blocks/time'
 import Map from './blocks/map'
@@ -8,6 +9,7 @@ import Http from './blocks/http'
 import Json from './blocks/json'
 import ConsoleLog from './blocks/console-log'
 
+const constant = new Constant(123)
 const file = new File()
 const time = new Time()
 const map_x2 = new Map(value => value * 2)
@@ -66,4 +68,5 @@ const forEach_slack = new ForEach(slackOut)
 //   .catch(console.log)
 
 time.run({duration: 3000})
+  .then(constant.run.bind(constant))
   .then(consoleLog.run)
