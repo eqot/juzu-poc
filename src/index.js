@@ -67,6 +67,7 @@ const forEach_slack = new ForEach(slackOut)
 //   .then(consoleLog.run)
 //   .catch(console.log)
 
-time.run({duration: 3000})
-  .then(constant.run.bind(constant))
-  .then(consoleLog.run)
+time.run({duration: 3000, loop: true}, () => {
+  file.run('src/locations.json')
+    .then(consoleLog.run)
+})
